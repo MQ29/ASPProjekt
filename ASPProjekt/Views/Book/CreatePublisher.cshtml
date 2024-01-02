@@ -1,0 +1,25 @@
+﻿@model Publisher
+
+<h1>Create publisher</h1>
+<form asp-controller="book" asp-action="CreatePublisher" method="post">
+    <div class="mb-3">
+        <label asp-for="Name">Name</label>
+        <input class="form-control" asp-for="Name" />
+        <span class="text-danger" asp-validation-for="Name"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Address">Address</label>
+        <input class="form-control" asp-for="Address" />
+        <span class="text-danger" asp-validation-for="Address"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Phone">Phone</label>
+        <input class="form-control" asp-for="Phone" />
+        <span class="text-danger" asp-validation-for="Phone"></span>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Create</button>
+        <button class="btn btn-primary" type="reset">Clear</button>
+    </div>
+</form>
+<a class="btn btn-primary" asp-action="Index">Back</a>

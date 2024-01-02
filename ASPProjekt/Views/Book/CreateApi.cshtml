@@ -1,0 +1,80 @@
+﻿@model Book
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Add a book</h1>
+<form asp-controller="Book" asp-action="CreateApi" method="post">
+    <div class="mb-3">
+        <label asp-for="Title">Title</label>
+        <input class="form-control" asp-for="Title" />
+        <span class="text-danger" asp-validation-for="Title"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Author">Author</label>
+        <input class="form-control" asp-for="Author" />
+        <span class="text-danger" asp-validation-for="Author"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ISBN">ISBN</label>
+        <input class="form-control" asp-for="ISBN" />
+        <span class="text-danger" asp-validation-for="ISBN"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="PublicationDate">Publication date</label>
+        <input class="form-control" asp-for="PublicationDate" />
+        <span class="text-danger" asp-validation-for="PublicationDate"></span>
+    </div>
+    <div>
+        <label asp-for="BookType"></label>
+        <div>
+            <span asp-validation-for="BookType" class="text-danger"></span>
+        </div>
+        <select class="form-control" asp-for="BookType" asp-items="@Html.GetEnumSelectList<BookType>()"></select>
+    </div>
+    <div class="form-group">
+        <label for="filter">Publishers filter</label>
+        <input class="form-control mb-3" type="text" name="filter" id="filter" />
+        <label asp-for="PublisherId"></label>
+        <select class="form-control mb-3" asp-for="PublisherId"></select>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Create</button>
+        <button class="btn btn-primary" type="reset">Clear</button>
+    </div>
+
+</form>
+<a class="btn btn-primary" asp-action="Index">Back</a>
+@section Scripts
+{
+    <script>
+        const select = document.getElementById('PublisherId');
+        const filter = document.getElementById('filter');
+
+        filter.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+
+                select.innerHTML = "";
+
+                fetch(`/api/publishers?q=${filter.value}`)
+                    .then(response => response.json())
+                    .then(publishers => {
+                        const filteredPublishers = publishers.filter(org => org.name.toLowerCase().includes(filter.value.toLowerCase()));
+
+                        for (let org of filteredPublishers) {
+                            const option = document.createElement('option');
+                            option.value = org.id;
+                            option.innerText = org.name;
+                            select.appendChild(option);
+                        }
+
+                        // Dodaj logowanie wartości PublisherId
+                        console.log(`PublisherId: ${select.value}`);
+                    });
+            }
+        });
+
+    </script>
+}
