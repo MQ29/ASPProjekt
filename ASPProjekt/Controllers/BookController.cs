@@ -119,5 +119,9 @@ namespace ASPProjekt.Controllers
             return View("CreatePublisher",model); //ponownie wyswitl form
         }
 
+        public IActionResult PagedIndex(int page = 1, int size = 2)
+        {
+            return View(_bookService.FindPage(page, size));
+        }
     }
 }

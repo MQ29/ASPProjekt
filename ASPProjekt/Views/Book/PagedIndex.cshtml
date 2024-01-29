@@ -1,51 +1,44 @@
-﻿@model PagingList<Contact>
+﻿@model PagingList<Book>
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 <h1>Lista kontaktów</h1>
-<a class="btn btn-primary" asp-controller="Contact" asp-action="Create">Dodaj kontakt</a>
-<a class="btn btn-primary" asp-controller="Contact" asp-action="CreateApi">Dodaj kontakt Api</a>
+<a class="btn btn-primary" asp-controller="Book" asp-action="Create">Dodaj kontakt</a>
+<a class="btn btn-primary" asp-controller="Book" asp-action="CreateApi">Dodaj kontakt Api</a>
 
 @if (Model.Data.Count() > 0)
 {
     <table class="table">
         <tr>
-            <th>
-                Imię
-            </th>
-            <th>
-                Data urodzenia
-            </th>
-            <th>
-                Akcje
-            </th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Actions</th>
         </tr>
         @foreach (var item in Model.Data)
         {
             <tr>
                 <td>
-                    @item.Name
+                    @item.Title
+                <td>
+                    @item.Author
                 </td>
                 <td>
-                    @item.Email
-                </td>
-                <td>
-                    <a class="btn btn-outline-secondary" asp-controller="Contact" asp-action="Update" asp-route-id=@item.Id>Edycja</a>
-                    <a class="btn btn-outline-info" asp-controller="Contact" asp-action="Details" asp-route-id=@item.Id>Szczegóły</a>
-                    <a class="btn btn-outline-danger" asp-controller="Contact" asp-action="Delete" asp-route-id=@item.Id>Usuń</a>
+                    <a class="btn btn-outline-secondary" asp-controller="Book" asp-action="Update" asp-route-id=@item.Id>Edycja</a>
+                    <a class="btn btn-outline-info" asp-controller="Book" asp-action="Details" asp-route-id=@item.Id>Szczegóły</a>
+                    <a class="btn btn-outline-danger" asp-controller="Book" asp-action="Delete" asp-route-id=@item.Id>Usuń</a>
                 </td>
             </tr>
         }
     </table>
-    <nav aria-label="Contacts page navigation">
+    <nav aria-label="Books page navigation">
         <ul class="pagination">
             @if (Model.IsPrevious)
             {
                 <li class="page-item">
                     <a class="page-link"
-                       asp-controller="Contact"
+                       asp-controller="Book"
                        asp-action="PagedIndex"
                        asp-route-page="@(Model.Number - 1)"
                        asp-route-size="@Model.Size">
@@ -66,7 +59,7 @@
             {
                 <li class="page-item">
                     <a class="page-link"
-                       asp-controller="Contact"
+                       asp-controller="Book"
                        asp-action="PagedIndex"
                        asp-route-page="@(Model.Number + 1)"
                        asp-route-size="@Model.Size">

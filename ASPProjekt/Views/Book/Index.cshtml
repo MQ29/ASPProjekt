@@ -7,12 +7,13 @@
     <div class="row">
         <div class="col-md-6">
             <h1>List of Books</h1>
+            <h3>Last visit: @ViewData["Visit"]</h3>
         </div>
         <div class="col-md-6 text-right">
             <a class="btn btn-primary" asp-controller="Book" asp-action="Create">Add a book</a>
             <a class="btn btn-primary" asp-controller="Book" asp-action="CreateApi">Add a book (Api)</a>
             <a class="btn btn-primary" asp-controller="Book" asp-action="CreatePublisher">Add a publisher</a>
-            <a class="btn btn-info" asp-controller="Contact" asp-action="PagedIndex">Pagination</a>
+            <a class="btn btn-info" asp-controller="Book" asp-action="PagedIndex">Pagination</a>
 
         </div>
     </div>

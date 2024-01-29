@@ -11,5 +11,6 @@ namespace ASPProjekt.Models
         Book? FindById(int id);
         List<PublisherEntity> FindAllPublishers();
         int AddPublisher(Publisher publisher);
+        PagingList<Book> FindPage(int page, int size);
     }
 }

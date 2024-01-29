@@ -53,6 +53,18 @@ namespace ASPProjekt.Models
             return find != null ? BookMapper.FromEntity(find) : null;
         }
 
+        public PagingList<Book> FindPage(int page, int size)
+        {
+            var p = PagingList<Book>.Create(null, _context.Books.Count(), page, size);
+            var data = _context.Books.OrderBy(o => o.Title)
+                              .Skip((p.Number - 1) * p.Size)
+                              .Take(p.Size)
+                              .Select(BookMapper.FromEntity)
+                              .ToList();
+            p.Data = data;
+            return p;
+        }
+
         public void Update(Book contact)
         {
             _context.Books.Update(BookMapper.ToEntity(contact));
